@@ -40,17 +40,18 @@
       const [isLoading, setIsLoading] = useState(false);
       const [countdown, setCountdown] = useState(null);
       const [errors, setErrors] = useState({});
+      const [feedbackMessage, setFeedbackMessage] = useState('');
 
       const sanitizeInput = (input) => {
         if (typeof input !== 'string') return input;
         const div = document.createElement('div');
         div.textContent = input;
         return div.innerHTML.replace(/[&<>"']/g, (char) => ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&apos;'
+          '&': '&',
+          '<': '<',
+          '>': '>',
+          '"': '"',
+          "'": '''
         }[char]));
       };
 
@@ -125,7 +126,7 @@
         }
       };
 
-      const handleSubmit = async (e) => {
+      const handlePortfolioSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
 
@@ -146,7 +147,7 @@
         data.append('template', template);
 
         try {
-          const apiUrl = 'https://eportfolio-generator.vercel.app/api/generate'; // Update after Vercel setup
+          const apiUrl = 'https://eportfolio-generator.vercel.app/api/generate';
           const response = await fetch(apiUrl, {
             method: 'POST',
             body: data,
@@ -159,11 +160,36 @@
             setCountdown(null);
           }
         } catch (error) {
-          console.error('Submission error:', error);
+          console.error('Portfolio submission error:', error);
           setMessage(<>Error: Unable to connect to the server. <span>Please check your connection and try again.</span></>);
           setCountdown(null);
         } finally {
           setIsLoading(false);
+        }
+      };
+
+      const handleFeedbackSubmit = async (e) => {
+        e.preventDefault();
+        setFeedbackMessage('Submitting feedback...');
+
+        const form = e.target;
+        const data = new FormData(form);
+
+        try {
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(data).toString(),
+          });
+          if (response.ok) {
+            setFeedbackMessage('Thank you for your feedback!');
+            form.reset();
+          } else {
+            setFeedbackMessage('Error submitting feedback. Please try again.');
+          }
+        } catch (error) {
+          console.error('Feedback submission error:', error);
+          setFeedbackMessage('Error: Unable to submit feedback. Please check your connection and try again.');
         }
       };
 
@@ -255,7 +281,7 @@
           <section id="generator" className="py-16 bg-white">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-8 text-center">Create Your ePortfolio</h2>
-              <form name="portfolio" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleSubmit} className="bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="portfolio-form-title">
+              <form name="portfolio" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handlePortfolioSubmit} className="bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="portfolio-form-title">
                 <input type="hidden" name="form-name" value="portfolio" />
                 <input type="hidden" name="bot-field" />
                 <h3 id="portfolio-form-title" className="sr-only">ePortfolio Generator Form</h3>
@@ -510,7 +536,7 @@
                   </div>
                 )}
               </form>
-              <form name="feedback" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" className="mt-8 bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="feedback-form-title">
+              <form name="feedback" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleFeedbackSubmit} className="mt-8 bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="feedback-form-title">
                 <input type="hidden" name="form-name" value="feedback" />
                 <input type="hidden" name="bot-field" />
                 <h3 id="feedback-form-title" className="sr-only">Feedback Form</h3>
@@ -531,6 +557,11 @@
                 >
                   Submit Feedback
                 </button>
+                {feedbackMessage && (
+                  <div className={`mt-4 text-center p-4 rounded-lg ${feedbackMessage.includes('Error') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`} role="alert" aria-live="polite">
+                    {feedbackMessage}
+                  </div>
+                )}
               </form>
               <div className="mt-8 text-center">
                 <a
@@ -571,10 +602,10 @@
               <p className="mb-4">© 2025 ePortfolio Generator. All rights reserved.</p>
               <nav aria-label="Footer navigation">
                 <ul className="flex justify-center space-x-4">
-                  <li><a href="#features" className="hover:text-yellow-400 transition">Features</a></li>
-                  <li><a href="#how-it-works" className="hover:text-yellow-400 transition">How It Works</a></li>
-                  <li><a href="#faq" className="hover:text-yellow-400 transition">FAQ</a></li>
-                  <li><a href="https://www.buymeacoffee.com/theidealcag" className="hover:text-yellow-400 transition" target="_blank" rel="noopener noreferrer">Support Us</a></li>
+                  <li><a href="#features" className="hover:text-yellow-300 transition">Features</a></li>
+                  <li><a href="#how-it-works" className="hover:text-yellow-300 transition">How It Works</a></li>
+                  <li><a href="#faq" className="hover:text-yellow-300 transition">FAQ</a></li>
+                  <li><a href="https://www.buymeacoffee.com/theidealcag" className="hover:text-yellow-300 transition" target="_blank" rel="noopener noreferrer">Support Us</a></li>
                 </ul>
               </nav>
             </div>
