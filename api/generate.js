@@ -1,38 +1,6 @@
-```javascript
-const { parse } = require('querystring');
-const fs = require('fs').promises;
-const path = require('path');
 
-// Helper to parse multipart form data (simplified, for Vercel)
-const parseMultipartForm = async (req) => {
-  return new Promise((resolve, reject) => {
-    let body = '';
-    req.on('data', chunk => { body += chunk; });
-    req.on('end', () => {
-      const boundary = req.headers['content-type'].split('boundary=')[1];
-      const parts = body.split(`--${boundary}`);
-      const formData = {};
-      
-      parts.forEach(part => {
-        if (part.includes('Content-Disposition')) {
-          const nameMatch = part.match(/name="([^"]+)"/);
-          const filenameMatch = part.match(/filename="([^"]+)"/);
-          if (nameMatch) {
-            const name = nameMatch[1];
-            const value = part.split('\r\n\r\n')[1]?.split('\r\n')[0]?.trim();
-            if (value && !filenameMatch) {
-              formData[name] = value;
-            }
-          }
-        }
-      });
-      resolve(formData);
-    });
-    req.on('error', reject);
-  });
-};
+const formidable = require('formidable-serverless');
 
-// Helper to generate a simple HTML portfolio
 const generatePortfolioHTML = (data) => {
   const { name, profession, tagline, summary, about, user_email, linkedin, phone, skills, skillProficiencies, projects, template } = data;
   return `
@@ -41,7 +9,7 @@ const generatePortfolioHTML = (data) => {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${name}'s ePortfolio</title>
+      <title>${name || 'Your Name'}'s ePortfolio</title>
       <script src="https://cdn.tailwindcss.com"></script>
       <style>
         body { font-family: 'Inter', sans-serif; }
@@ -109,28 +77,42 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // Parse form data
-    const formData = await parseMultipartForm(req);
-    
-    // Parse JSON fields (skills, projects)
-    formData.skills = formData.skills ? JSON.parse(formData.skills) : ['', '', '', ''];
-    formData.skillProficiencies = formData.skillProficiencies ? JSON.parse(formData.skillProficiencies) : [80, 70, 60, 50];
-    formData.projects = formData.projects ? JSON.parse(formData.projects) : [
-      { title: '', description: '', link: '', category: '' },
-      { title: '', description: '', link: '', category: '' },
-    ];
+    const form = new formidable.IncomingForm();
+    const [fields, files] = await form.parse(req);
+
+    // Parse JSON fields
+    const formData = {
+      name: fields.name?.[0] || '',
+      profession: fields.profession?.[0] || '',
+      tagline: fields.tagline?.[0] || '',
+      summary: fields.summary?.[0] || '',
+      about: fields.about?.[0] || '',
+      user_email: fields.user_email?.[0] || '',
+      linkedin: fields.linkedin?.[0] || '',
+      phone: fields.phone?.[0] || '',
+      skills: fields.skills?.[0] ? JSON.parse(fields.skills[0]) : ['', '', '', ''],
+      skillProficiencies: fields.skillProficiencies?.[0] ? JSON.parse(fields.skillProficiencies[0]) : [80, 70, 60, 50],
+      projects: fields.projects?.[0] ? JSON.parse(fields.projects[0]) : [
+        { title: '', description: '', link: '', category: '' },
+        { title: '', description: '', link: '', category: '' },
+      ],
+      template: fields.template?.[0] || 'default',
+    };
+
+    // Handle files (cv, image)
+    const cvFile = files.cv?.[0] || null;
+    const imageFile = files.image?.[0] || null;
 
     // Generate unique ID for portfolio
     const portfolioId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
     
     // Generate HTML
     const html = generatePortfolioHTML(formData);
-    
-    // TODO: Save HTML to storage (e.g., Vercel Blob, GitHub Pages, or filesystem)
-    // For now, we'll mock the storage by returning a placeholder URL
+
+    // Mock URL (replace with Vercel Blob or GitHub Pages later)
     const portfolioUrl = `https://eportfolio-generator.vercel.app/portfolios/${portfolioId}`;
-    
-    // Example: Save to Vercel Blob (requires Vercel Blob SDK, uncomment if using)
+
+    // Example: Vercel Blob storage (uncomment when ready)
     /*
     const { put } = require('@vercel/blob');
     const blob = await put(`portfolios/${portfolioId}.html`, html, {
@@ -140,25 +122,9 @@ module.exports = async (req, res) => {
     const portfolioUrl = blob.url;
     */
 
-    // Example: Save to GitHub Pages (requires GitHub API setup, placeholder)
-    /*
-    const { Octokit } = require('@octokit/rest');
-    const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-    await octokit.repos.createOrUpdateFileContents({
-      owner: 'your-username',
-      repo: 'eportfolio-generator',
-      path: `portfolios/${portfolioId}.html`,
-      message: `Add portfolio for ${formData.name}`,
-      content: Buffer.from(html).toString('base64'),
-    });
-    const portfolioUrl = `https://your-username.github.io/eportfolio-generator/portfolios/${portfolioId}.html`;
-    */
-
-    // Return success response
     res.status(200).json({ url: portfolioUrl });
   } catch (error) {
-    console.error('Error generating portfolio:', error);
-    res.status(500).json({ error: 'Failed to generate portfolio' });
+    console.error('Error generating portfolio:', error.message, error.stack);
+    res.status(500).json({ error: 'Failed to generate portfolio: ' + error.message });
   }
 };
-```
