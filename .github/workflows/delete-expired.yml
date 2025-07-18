@@ -1,0 +1,21 @@
+```yaml
+name: Delete Expired Repos
+on:
+  schedule:
+    - cron: "0 0 * * *" # Daily at midnight UTC
+jobs:
+  delete-expired:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - run: npm install @supabase/supabase-js @octokit/rest
+      - run: node .github/workflows/delete-expired.js
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ePortfolioGen
+```
