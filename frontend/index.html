@@ -6,720 +6,588 @@
   <title>ePortfolio Generator</title>
   <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.6/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    /* Tailwind CSS optimized output (generated via npx tailwindcss) */
-    :root {
-      --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
-      --tw-ring-offset-width: 0px;
-      --tw-ring-offset-color: #fff;
-      --tw-ring-color: rgba(59, 130, 246, 0.5);
-      --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-ring-shadow: 0 0 #0000;
-    }
-    .min-h-screen { min-height: 100vh; }
-    .bg-gray-50 { background-color: #f9fafb; }
-    .bg-gray-100 { background-color: #f3f4f6; }
-    .bg-gray-800 { background-color: #1f2937; }
-    .bg-white { background-color: #fff; }
-    .bg-indigo-600 { background-color: #4f46e5; }
-    .bg-blue-500 { background-color: #3b82f6; }
-    .bg-yellow-400 { background-color: #facc15; }
-    .bg-yellow-500 { background-color: #eab308; }
-    .bg-red-100 { background-color: #fee2e2; }
-    .bg-green-100 { background-color: #d1fae5; }
-    .text-white { color: #fff; }
-    .text-gray-600 { color: #4b5563; }
-    .text-gray-700 { color: #374151; }
-    .text-gray-800 { color: #1f2937; }
-    .text-gray-900 { color: #111827; }
-    .text-indigo-600 { color: #4f46e5; }
-    .text-red-700 { color: #b91c1c; }
-    .text-green-700 { color: #047857; }
-    .text-yellow-300 { color: #fef08a; }
-    .font-inter { font-family: Inter, sans-serif; }
-    .font-poppins { font-family: Poppins, sans-serif; }
-    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-    .font-medium { font-weight: 500; }
-    .font-semibold { font-weight: 600; }
-    .font-bold { font-weight: 700; }
-    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-    .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-    .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
-    .px-4 { padding-left: 1rem; padding-right: 1rem; }
-    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .px-8 { padding-left: 2rem; padding-right: 2rem; }
-    .mt-1 { margin-top: 0.25rem; }
-    .mt-2 { margin-top: 0.5rem; }
-    .mt-4 { margin-top: 1rem; }
-    .mt-6 { margin-top: 1.5rem; }
-    .mt-8 { margin-top: 2rem; }
-    .mb-2 { margin-bottom: 0.5rem; }
-    .mb-4 { margin-bottom: 1rem; }
-    .mb-6 { margin-bottom: 1.5rem; }
-    .mb-8 { margin-bottom: 2rem; }
-    .mb-12 { margin-bottom: 3rem; }
-    .max-w-4xl { max-width: 56rem; }
-    .max-w-7xl { max-width: 80rem; }
-    .mx-auto { margin-left: auto; margin-right: auto; }
-    .rounded-md { border-radius: 0.375rem; }
-    .rounded-lg { border-radius: 0.5rem; }
-    .rounded-full { border-radius: 9999px; }
-    .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
-    .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-    .border-gray-300 { border-color: #d1d5db; }
-    .grid { display: grid; }
-    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-    .gap-4 { gap: 1rem; }
-    .gap-6 { gap: 1.5rem; }
-    .gap-8 { gap: 2rem; }
-    .space-x-4 > :not(:first-child) { margin-left: 1rem; }
-    .space-x-6 > :not(:first-child) { margin-left: 1.5rem; }
-    .space-y-6 > :not(:first-child) { margin-top: 1.5rem; }
-    .flex { display: flex; }
-    .items-center { align-items: center; }
-    .justify-between { justify-content: space-between; }
-    .justify-center { justify-content: center; }
-    .text-center { text-align: center; }
-    .w-full { width: 100%; }
-    .w-32 { width: 8rem; }
-    .h-32 { height: 8rem; }
-    .object-cover { object-fit: cover; }
-    .hover\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-    .hover\:bg-indigo-700:hover { background-color: #4338ca; }
-    .hover\:bg-yellow-500:hover { background-color: #eab308; }
-    .hover\:bg-gray-600:hover { background-color: #4b5563; }
-    .hover\:text-yellow-300:hover { color: #fef08a; }
-    .transition { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-    .focus\:outline-none:focus { outline: none; }
-    .focus\:ring:focus { --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color); --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color); box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), 0 0 #0000; }
-    .focus\:ring-indigo-500:focus { --tw-ring-color: #6366f1; }
-    .focus\:ring-gray-500:focus { --tw-ring-color: #6b7280; }
-    .focus\:ring-opacity-50:focus { --tw-ring-opacity: 0.5; }
-    .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
-    .from-indigo-600 { --tw-gradient-from: #4f46e5; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(79, 70, 229, 0)); }
-    .to-blue-500 { --tw-gradient-to: #3b82f6; }
-    .sticky { position: sticky; }
-    .top-0 { top: 0; }
-    .z-50 { z-index: 50; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-    .cursor-not-allowed { cursor: not-allowed; }
-    @media (min-width: 640px) {
-      .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-    }
-    @media (min-width: 768px) {
-      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .md\:col-span-2 { grid-column: span 2 / span 2; }
-      .md\:text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-      .md\:text-5xl { font-size: 3rem; line-height: 1; }
-    }
-    @media (min-width: 1024px) {
-      .lg\:px-8 { padding-left: 2rem; padding-right: 2rem; }
-    }
-  </style>
 </head>
 <body class="font-inter bg-gray-50">
   <div id="root"></div>
-  <script src="https://cdn.jsdelivr.net/npm/esbuild-wasm@0.17.19/esbuild.wasm.min.js"></script>
-  <script>
-    // Initialize esbuild for JSX transformation
-    esbuild.initialize({ wasmURL: 'https://cdn.jsdelivr.net/npm/esbuild-wasm@0.17.19/esbuild.wasm' });
-    const transformJSX = async (code) => {
-      try {
-        const result = await esbuild.transform(code, { loader: 'jsx', format: 'iife', globalName: 'AppModule' });
-        return result.code;
-      } catch (e) {
-        console.error('JSX transform error:', e);
-        return '';
-      }
-    };
+  <script type="text/babel">
+    const { useState, useEffect } = React;
 
-    // JSX code (precompiled by esbuild)
-    const jsxCode = `
-      const { useState, useEffect } = React;
+    function App() {
+      const [formData, setFormData] = useState({
+        name: '',
+        profession: '',
+        tagline: '',
+        summary: '',
+        about: '',
+        user_email: '',
+        linkedin: '',
+        phone: '',
+        skills: ['', '', '', ''],
+        skillProficiencies: [80, 70, 60, 50],
+        projects: [
+          { title: '', description: '', link: '', category: '' },
+          { title: '', description: '', link: '', category: '' },
+        ],
+      });
+      const [cvFile, setCvFile] = useState(null);
+      const [imageFile, setImageFile] = useState(null);
+      const [imagePreview, setImagePreview] = useState(null);
+      const [template, setTemplate] = useState('default');
+      const [message, setMessage] = useState('');
+      const [isLoading, setIsLoading] = useState(false);
+      const [countdown, setCountdown] = useState(null);
+      const [errors, setErrors] = useState({});
 
-      function App() {
-        const [formData, setFormData] = useState({
-          name: '',
-          profession: '',
-          tagline: '',
-          summary: '',
-          about: '',
-          user_email: '',
-          linkedin: '',
-          phone: '',
-          skills: ['', '', '', ''],
-          skillProficiencies: [80, 70, 60, 50],
-          projects: [
-            { title: '', description: '', link: '', category: '' },
-            { title: '', description: '', link: '', category: '' },
-          ],
-        });
-        const [cvFile, setCvFile] = useState(null);
-        const [imageFile, setImageFile] = useState(null);
-        const [imagePreview, setImagePreview] = useState(null);
-        const [template, setTemplate] = useState('default');
-        const [message, setMessage] = useState('');
-        const [isLoading, setIsLoading] = useState(false);
-        const [countdown, setCountdown] = useState(null);
-        const [errors, setErrors] = useState({});
+      const sanitizeInput = (input) => {
+        if (typeof input !== 'string') return input;
+        const div = document.createElement('div');
+        div.textContent = input;
+        return div.innerHTML.replace(/[&<>"']/g, (char) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&apos;'
+        }[char]));
+      };
 
-        const sanitizeInput = (input) => {
-          if (typeof input !== 'string') return input;
-          return input.replace(/[&<>"']/g, (char) => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&apos;'
-          }[char]));
-        };
+      const validateUrl = (url) => {
+        if (!url) return true;
+        const linkedinRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
+        return linkedinRegex.test(url);
+      };
 
-        const validateUrl = (url) => {
-          if (!url) return true;
-          const linkedinRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
-          return linkedinRegex.test(url);
-        };
+      const validateForm = () => {
+        const newErrors = {};
+        if (!formData.name) newErrors.name = 'Full name is required.';
+        if (!formData.profession) newErrors.profession = 'Profession is required.';
+        if (!formData.user_email) newErrors.user_email = 'Email is required.';
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.user_email)) {
+          newErrors.user_email = 'Please enter a valid email address.';
+        }
+        if (formData.linkedin && !validateUrl(formData.linkedin)) {
+          newErrors.linkedin = 'Please enter a valid LinkedIn URL (e.g., https://www.linkedin.com/in/username).';
+        }
+        if (formData.skillProficiencies.some(val => val < 0 || val > 100)) {
+          newErrors.skills = 'Skill proficiencies must be between 0 and 100.';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+      };
 
-        const validateForm = () => {
-          const newErrors = {};
-          if (!formData.name) newErrors.name = 'Full name is required.';
-          if (!formData.profession) newErrors.profession = 'Profession is required.';
-          if (!formData.user_email) newErrors.user_email = 'Email is required.';
-          else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.user_email)) {
-            newErrors.user_email = 'Please enter a valid email address.';
-          }
-          if (formData.linkedin && !validateUrl(formData.linkedin)) {
-            newErrors.linkedin = 'Please enter a valid LinkedIn URL (e.g., https://www.linkedin.com/in/username).';
-          }
-          if (formData.skillProficiencies.some(val => val < 0 || val > 100)) {
-            newErrors.skills = 'Skill proficiencies must be between 0 and 100.';
-          }
-          setErrors(newErrors);
-          return Object.keys(newErrors).length === 0;
-        };
-
-        const handleInputChange = (e, index = null, field = null) => {
-          const value = e.target.name === 'linkedin' ? e.target.value : sanitizeInput(e.target.value);
-          if (index !== null && field) {
-            if (field === 'skills') {
-              const newSkills = [...formData.skills];
-              newSkills[index] = value;
-              setFormData({ ...formData, skills: newSkills });
-            } else if (field === 'skillProficiencies') {
-              const val = parseInt(e.target.value) || 0;
-              if (val >= 0 && val <= 100) {
-                const newProficiencies = [...formData.skillProficiencies];
-                newProficiencies[index] = val;
-                setFormData({ ...formData, skillProficiencies: newProficiencies });
-              }
-            } else {
-              const newProjects = [...formData.projects];
-              newProjects[index][field] = field === 'link' ? e.target.value : value;
-              setFormData({ ...formData, projects: newProjects });
+      const handleInputChange = (e, index = null, field = null) => {
+        const value = e.target.name === 'linkedin' ? e.target.value : sanitizeInput(e.target.value);
+        if (index !== null && field) {
+          if (field === 'skills') {
+            const newSkills = [...formData.skills];
+            newSkills[index] = value;
+            setFormData({ ...formData, skills: newSkills });
+          } else if (field === 'skillProficiencies') {
+            const val = parseInt(e.target.value) || 0;
+            if (val >= 0 && val <= 100) {
+              const newProficiencies = [...formData.skillProficiencies];
+              newProficiencies[index] = val;
+              setFormData({ ...formData, skillProficiencies: newProficiencies });
             }
           } else {
-            setFormData({ ...formData, [e.target.name]: value });
+            const newProjects = [...formData.projects];
+            newProjects[index][field] = field === 'link' ? e.target.value : value;
+            setFormData({ ...formData, projects: newProjects });
           }
-          setErrors({ ...errors, [e.target.name]: '' });
-        };
+        } else {
+          setFormData({ ...formData, [e.target.name]: value });
+        }
+        setErrors({ ...errors, [e.target.name]: '' });
+      };
 
-        const handleFileChange = (e, type) => {
-          const file = e.target.files[0];
-          if (type === 'cv' && file && file.type !== 'application/pdf') {
-            setErrors({ ...errors, cv: 'Please upload a valid PDF file for CV.' });
-            return;
-          }
-          if (type === 'image' && file && !file.type.startsWith('image/')) {
-            setErrors({ ...errors, image: 'Please upload a valid image file (JPEG/PNG).' });
-            return;
-          }
-          if (type === 'cv') {
-            setCvFile(file);
-            setErrors({ ...errors, cv: '' });
+      const handleFileChange = (e, type) => {
+        const file = e.target.files[0];
+        if (type === 'cv' && file && file.type !== 'application/pdf') {
+          setErrors({ ...errors, cv: 'Please upload a valid PDF file for CV.' });
+          return;
+        }
+        if (type === 'image' && file && !file.type.startsWith('image/')) {
+          setErrors({ ...errors, image: 'Please upload a valid image file (JPEG/PNG).' });
+          return;
+        }
+        if (type === 'cv') {
+          setCvFile(file);
+          setErrors({ ...errors, cv: '' });
+        } else {
+          setImageFile(file);
+          const reader = new FileReader();
+          reader.onloadend = () => setImagePreview(reader.result);
+          if (file) reader.readAsDataURL(file);
+          setErrors({ ...errors, image: '' });
+        }
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+
+        setIsLoading(true);
+        setMessage('Generating your ePortfolio...');
+        setCountdown(60);
+
+        const data = new FormData();
+        for (const key in formData) {
+          if (Array.isArray(formData[key])) {
+            data.append(key, JSON.stringify(formData[key]));
           } else {
-            setImageFile(file);
-            const reader = new FileReader();
-            reader.onloadend = () => setImagePreview(reader.result);
-            if (file) reader.readAsDataURL(file);
-            setErrors({ ...errors, image: '' });
+            data.append(key, formData[key]);
           }
-        };
+        }
+        if (cvFile) data.append('cv', cvFile);
+        if (imageFile) data.append('image', imageFile);
+        data.append('template', template);
 
-        const handleSubmit = async (e) => {
-          e.preventDefault();
-          if (!validateForm()) return;
-
-          setIsLoading(true);
-          setMessage('Generating your ePortfolio...');
-          setCountdown(60);
-
-          const data = new FormData();
-          for (const key in formData) {
-            if (Array.isArray(formData[key])) {
-              data.append(key, JSON.stringify(formData[key]));
-            } else {
-              data.append(key, formData[key]);
-            }
-          }
-          if (cvFile) data.append('cv', cvFile);
-          if (imageFile) data.append('image', imageFile);
-          data.append('template', template);
-
-          try {
-            const apiUrl = process.env.REACT_APP_API_URL || 'https://eportfolio-generator.vercel.app/api/generate';
-            const response = await fetch(apiUrl, {
-              method: 'POST',
-              body: data,
-            });
-            const result = await response.json();
-            if (response.ok) {
-              setMessage(<>Success! Your ePortfolio is live at: <a href={result.url} className="underline" target="_blank" rel="noopener noreferrer">{result.url}</a></>);
-            } else {
-              setMessage(<>Error: {result.error || 'Failed to generate ePortfolio.'} <span>Please try again or contact support.</span></>);
-              setCountdown(null);
-            }
-          } catch (error) {
-            setMessage(<>Error: Unable to connect to the server. <span>Please check your connection and try again.</span></>);
+        try {
+          const apiUrl = 'https://eportfolio-generator.vercel.app/api/generate'; // Update after Vercel setup
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            body: data,
+          });
+          const result = await response.json();
+          if (response.ok) {
+            setMessage(<>Success! Your ePortfolio is live at: <a href={result.url} className="underline" target="_blank" rel="noopener noreferrer">{result.url}</a></>);
+          } else {
+            setMessage(<>Error: {result.error || 'Failed to generate ePortfolio.'} <span>Please try again or contact support.</span></>);
             setCountdown(null);
-          } finally {
-            setIsLoading(false);
           }
-        };
+        } catch (error) {
+          console.error('Submission error:', error);
+          setMessage(<>Error: Unable to connect to the server. <span>Please check your connection and try again.</span></>);
+          setCountdown(null);
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
-        useEffect(() => {
-          if (countdown === null) return;
-          if (countdown <= 0) {
-            setCountdown(null);
-            return;
-          }
-          const timer = setInterval(() => {
-            setCountdown((prev) => prev - 1);
-          }, 1000);
-          return () => clearInterval(timer);
-        }, [countdown]);
+      useEffect(() => {
+        if (countdown === null) return;
+        if (countdown <= 0) {
+          setCountdown(null);
+          return;
+        }
+        const timer = setInterval(() => {
+          setCountdown((prev) => prev - 1);
+        }, 1000);
+        return () => clearInterval(timer);
+      }, [countdown]);
 
-        const formatCountdown = (seconds) => {
-          const minutes = Math.floor(seconds / 60);
-          const secs = seconds % 60;
-          return \`\${minutes}:\${secs < 10 ? '0' : ''}\${secs}\`;
-        };
+      const formatCountdown = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+      };
 
-        return (
-          <div className="min-h-screen">
-            <header className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-6 sticky top-0 z-50 shadow-lg">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                <h1 className="text-3xl font-poppins font-bold">ePortfolio Generator</h1>
-                <nav aria-label="Main navigation">
-                  <ul className="flex space-x-6">
-                    <li><a href="#features" className="hover:text-yellow-300 transition">Features</a></li>
-                    <li><a href="#how-it-works" className="hover:text-yellow-300 transition">How It Works</a></li>
-                    <li><a href="#faq" className="hover:text-yellow-300 transition">FAQ</a></li>
-                    <li><a href="#generator" className="bg-yellow-400 text-gray-900 py-2 px-4 rounded-full font-semibold hover:bg-yellow-500 transition">Get Started</a></li>
-                  </ul>
-                </nav>
-              </div>
-            </header>
+      return (
+        <div className="min-h-screen">
+          <header className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-6 sticky top-0 z-50 shadow-lg">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+              <h1 className="text-3xl font-poppins font-bold">ePortfolio Generator</h1>
+              <nav aria-label="Main navigation">
+                <ul className="flex space-x-6">
+                  <li><a href="#features" className="hover:text-yellow-300 transition">Features</a></li>
+                  <li><a href="#how-it-works" className="hover:text-yellow-300 transition">How It Works</a></li>
+                  <li><a href="#faq" className="hover:text-yellow-300 transition">FAQ</a></li>
+                  <li><a href="#generator" className="bg-yellow-400 text-gray-900 py-2 px-4 rounded-full font-semibold hover:bg-yellow-500 transition">Get Started</a></li>
+                </ul>
+              </nav>
+            </div>
+          </header>
 
-            <section className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-16">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 className="text-4xl md:text-5xl font-poppins font-bold mb-6">Build Your Professional ePortfolio</h1>
-                <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Create a stunning, personalized portfolio to showcase your skills, projects, and achievements in just minutes.</p>
-                <a href="#generator" className="inline-block bg-yellow-400 text-gray-900 py-3 px-8 rounded-full font-semibold hover:bg-yellow-500 transition" aria-label="Start creating your ePortfolio">Start Creating Now</a>
-              </div>
-            </section>
+          <section className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h1 className="text-4xl md:text-5xl font-poppins font-bold mb-6">Build Your Professional ePortfolio</h1>
+              <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Create a stunning, personalized portfolio to showcase your skills, projects, and achievements in just minutes.</p>
+              <a href="#generator" className="inline-block bg-yellow-400 text-gray-900 py-3 px-8 rounded-full font-semibold hover:bg-yellow-500 transition" aria-label="Start creating your ePortfolio">Start Creating Now</a>
+            </div>
+          </section>
 
-            <section id="features" className="py-16 bg-white">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-12 text-center">Why Choose Our ePortfolio Generator?</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
-                    <h3 className="text-xl font-semibold text-indigo-600 mb-4">Customizable Templates</h3>
-                    <p className="text-gray-600">Choose from professional templates to create a portfolio that reflects your unique style.</p>
-                  </div>
-                  <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
-                    <h3 className="text-xl font-semibold text-indigo-600 mb-4">Fast & Easy</h3>
-                    <p className="text-gray-600">Generate your portfolio in minutes with our intuitive form-based interface.</p>
-                  </div>
-                  <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
-                    <h3 className="text-xl font-semibold text-indigo-600 mb-4">Secure Hosting</h3>
-                    <p className="text-gray-600">Your portfolio is hosted securely on GitHub Pages with a unique URL.</p>
-                  </div>
+          <section id="features" className="py-16 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-12 text-center">Why Choose Our ePortfolio Generator?</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                  <h3 className="text-xl font-semibold text-indigo-600 mb-4">Customizable Templates</h3>
+                  <p className="text-gray-600">Choose from professional templates to create a portfolio that reflects your unique style.</p>
+                </div>
+                <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                  <h3 className="text-xl font-semibold text-indigo-600 mb-4">Fast & Easy</h3>
+                  <p className="text-gray-600">Generate your portfolio in minutes with our intuitive form-based interface.</p>
+                </div>
+                <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                  <h3 className="text-xl font-semibold text-indigo-600 mb-4">Secure Hosting</h3>
+                  <p className="text-gray-600">Your portfolio is hosted securely on GitHub Pages with a unique URL.</p>
                 </div>
               </div>
-            </section>
+            </div>
+          </section>
 
-            <section id="how-it-works" className="py-16 bg-gray-100">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-12 text-center">How It Works</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-indigo-600 mb-4">1</div>
-                    <h3 className="text-xl font-semibold mb-4">Fill Out the Form</h3>
-                    <p className="text-gray-600">Enter your details, skills, and projects in our easy-to-use form.</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-indigo-600 mb-4">2</div>
-                    <h3 className="text-xl font-semibold mb-4">Choose a Template</h3>
-                    <p className="text-gray-600">Select from our professionally designed templates to match your style.</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-indigo-600 mb-4">3</div>
-                    <h3 className="text-xl font-semibold mb-4">Get Your Portfolio</h3>
-                    <p className="text-gray-600">Receive a unique URL to your live portfolio in just a minute.</p>
-                  </div>
+          <section id="how-it-works" className="py-16 bg-gray-100">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-12 text-center">How It Works</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-indigo-600 mb-4">1</div>
+                  <h3 className="text-xl font-semibold mb-4">Fill Out the Form</h3>
+                  <p className="text-gray-600">Enter your details, skills, and projects in our easy-to-use form.</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-indigo-600 mb-4">2</div>
+                  <h3 className="text-xl font-semibold mb-4">Choose a Template</h3>
+                  <p className="text-gray-600">Select from our professionally designed templates to match your style.</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-indigo-600 mb-4">3</div>
+                  <h3 className="text-xl font-semibold mb-4">Get Your Portfolio</h3>
+                  <p className="text-gray-600">Receive a unique URL to your live portfolio in just a minute.</p>
                 </div>
               </div>
-            </section>
+            </div>
+          </section>
 
-            <section id="generator" className="py-16 bg-white">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-8 text-center">Create Your ePortfolio</h2>
-                <form name="portfolio" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleSubmit} className="bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="portfolio-form-title">
-                  <input type="hidden" name="form-name" value="portfolio" />
-                  <input type="hidden" name="bot-field" />
-                  <h3 id="portfolio-form-title" className="sr-only">ePortfolio Generator Form</h3>
-                  <div className="mb-8">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-4">Preview Profile Image</h3>
-                    {imagePreview ? (
-                      <img src={imagePreview} alt="Profile preview" className="w-32 h-32 rounded-full mx-auto object-cover shadow-md" aria-describedby="image-preview-desc" />
-                    ) : (
-                      <div className="w-32 h-32 rounded-full mx-auto bg-gray-200 flex items-center justify-center text-gray-500" aria-describedby="image-preview-desc">No Image</div>
-                    )}
-                    <p id="image-preview-desc" className="sr-only">Preview of the uploaded profile image or a placeholder if no image is uploaded.</p>
+          <section id="generator" className="py-16 bg-white">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-8 text-center">Create Your ePortfolio</h2>
+              <form name="portfolio" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleSubmit} className="bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="portfolio-form-title">
+                <input type="hidden" name="form-name" value="portfolio" />
+                <input type="hidden" name="bot-field" />
+                <h3 id="portfolio-form-title" className="sr-only">ePortfolio Generator Form</h3>
+                <div className="mb-8">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">Preview Profile Image</h3>
+                  {imagePreview ? (
+                    <img src={imagePreview} alt="Profile preview" className="w-32 h-32 rounded-full mx-auto object-cover shadow-md" aria-describedby="image-preview-desc" />
+                  ) : (
+                    <div className="w-32 h-32 rounded-full mx-auto bg-gray-200 flex items-center justify-center text-gray-500" aria-describedby="image-preview-desc">No Image</div>
+                  )}
+                  <p id="image-preview-desc" className="sr-only">Preview of the uploaded profile image or a placeholder if no image is uploaded.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                      required
+                      aria-required="true"
+                      aria-invalid={errors.name ? 'true' : 'false'}
+                      aria-describedby={errors.name ? 'name-error' : undefined}
+                    />
+                    {errors.name && <p id="name-error" className="text-sm text-red-700 mt-1">{errors.name}</p>}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
-                      <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        required
-                        aria-required="true"
-                        aria-invalid={errors.name ? 'true' : 'false'}
-                        aria-describedby={errors.name ? 'name-error' : undefined}
-                      />
-                      {errors.name && <p id="name-error" className="text-sm text-red-700 mt-1">{errors.name}</p>}
-                    </div>
-                    <div>
-                      <label htmlFor="profession" className="block text-sm font-medium text-gray-700">Profession</label>
-                      <input
-                        id="profession"
-                        type="text"
-                        name="profession"
-                        value={formData.profession}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        required
-                        aria-required="true"
-                        aria-invalid={errors.profession ? 'true' : 'false'}
-                        aria-describedby={errors.profession ? 'profession-error' : undefined}
-                      />
-                      {errors.profession && <p id="profession-error" className="text-sm text-red-700 mt-1">{errors.profession}</p>}
-                    </div>
-                    <div>
-                      <label htmlFor="user_email" className="block text-sm font-medium text-gray-700">Email (for reminders)</label>
-                      <input
-                        id="user_email"
-                        type="email"
-                        name="user_email"
-                        value={formData.user_email}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        required
-                        aria-required="true"
-                        aria-invalid={errors.user_email ? 'true' : 'false'}
-                        aria-describedby={errors.user_email ? 'user_email-error' : 'email-desc'}
-                      />
-                      <p id="email-desc" className="text-sm text-gray-500 mt-1">Used for expiry reminders via Amazon SES.</p>
-                      {errors.user_email && <p id="user_email-error" className="text-sm text-red-700 mt-1">{errors.user_email}</p>}
-                    </div>
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number (Optional)</label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label htmlFor="tagline" className="block text-sm font-medium text-gray-700">Tagline/Mission Statement (Optional)</label>
-                      <input
-                        id="tagline"
-                        type="text"
-                        name="tagline"
-                        value={formData.tagline}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label htmlFor="summary" className="block text-sm font-medium text-gray-700">Professional Summary</label>
-                      <textarea
-                        id="summary"
-                        name="summary"
-                        value={formData.summary}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        rows="4"
-                        aria-describedby="summary-desc"
-                      />
-                      <p id="summary-desc" className="text-sm text-gray-500 mt-1">Brief overview of your professional background.</p>
-                    </div>
-                    <div className="md:col-span-2">
-                      <label htmlFor="about" className="block text-sm font-medium text-gray-700">About Me</label>
-                      <textarea
-                        id="about"
-                        name="about"
-                        value={formData.about}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        rows="4"
-                        aria-describedby="about-desc"
-                      />
-                      <p id="about-desc" className="text-sm text-gray-500 mt-1">Tell your story and what makes you unique.</p>
-                    </div>
-                    <div className="md:col-span-2">
-                      <label htmlFor="linkedin" className="block text-sm font-medium text-gray-700">LinkedIn URL (Optional)</label>
-                      <input
-                        id="linkedin"
-                        type="url"
-                        name="linkedin"
-                        value={formData.linkedin}
-                        onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        placeholder="https://www.linkedin.com/in/username"
-                        aria-invalid={errors.linkedin ? 'true' : 'false'}
-                        aria-describedby={errors.linkedin ? 'linkedin-error' : undefined}
-                      />
-                      {errors.linkedin && <p id="linkedin-error" className="text-sm text-red-700 mt-1">{errors.linkedin}</p>}
-                    </div>
+                  <div>
+                    <label htmlFor="profession" className="block text-sm font-medium text-gray-700">Profession</label>
+                    <input
+                      id="profession"
+                      type="text"
+                      name="profession"
+                      value={formData.profession}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                      required
+                      aria-required="true"
+                      aria-invalid={errors.profession ? 'true' : 'false'}
+                      aria-describedby={errors.profession ? 'profession-error' : undefined}
+                    />
+                    {errors.profession && <p id="profession-error" className="text-sm text-red-700 mt-1">{errors.profession}</p>}
                   </div>
-                  <div className="mt-8">
-                    <label className="block text-sm font-medium text-gray-700">Skills (4)</label>
-                    {errors.skills && <p id="skills-error" className="text-sm text-red-700 mt-1">{errors.skills}</p>}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                      {formData.skills.map((skill, index) => (
-                        <div key={index} className="flex space-x-4">
-                          <input
-                            type="text"
-                            value={skill}
-                            onChange={(e) => handleInputChange(e, index, 'skills')}
-                            placeholder={\`Skill \${index + 1}\`}
-                            className="block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                            aria-label={\`Skill \${index + 1}\`}
-                          />
-                          <input
-                            type="number"
-                            value={formData.skillProficiencies[index]}
-                            onChange={(e) => handleInputChange(e, index, 'skillProficiencies')}
-                            placeholder="Proficiency %"
-                            min="0"
-                            max="100"
-                            className="block w-1/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                            aria-label={\`Proficiency for skill \${index + 1}\`}
-                          />
-                        </div>
-                      ))}
-                    </div>
+                  <div>
+                    <label htmlFor="user_email" className="block text-sm font-medium text-gray-700">Email (for reminders)</label>
+                    <input
+                      id="user_email"
+                      type="email"
+                      name="user_email"
+                      value={formData.user_email}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                      required
+                      aria-required="true"
+                      aria-invalid={errors.user_email ? 'true' : 'false'}
+                      aria-describedby={errors.user_email ? 'user_email-error' : 'email-desc'}
+                    />
+                    <p id="email-desc" className="text-sm text-gray-500 mt-1">Used for expiry reminders via Amazon SES.</p>
+                    {errors.user_email && <p id="user_email-error" className="text-sm text-red-700 mt-1">{errors.user_email}</p>}
                   </div>
-                  <div className="mt-8">
-                    <label className="block text-sm font-medium text-gray-700">Projects (2)</label>
-                    {formData.projects.map((project, index) => (
-                      <div key={index} className="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number (Optional)</label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="tagline" className="block text-sm font-medium text-gray-700">Tagline/Mission Statement (Optional)</label>
+                    <input
+                      id="tagline"
+                      type="text"
+                      name="tagline"
+                      value={formData.tagline}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="summary" className="block text-sm font-medium text-gray-700">Professional Summary</label>
+                    <textarea
+                      id="summary"
+                      name="summary"
+                      value={formData.summary}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                      rows="4"
+                      aria-describedby="summary-desc"
+                    />
+                    <p id="summary-desc" className="text-sm text-gray-500 mt-1">Brief overview of your professional background.</p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">About Me</label>
+                    <textarea
+                      id="about"
+                      name="about"
+                      value={formData.about}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                      rows="4"
+                      aria-describedby="about-desc"
+                    />
+                    <p id="about-desc" className="text-sm text-gray-500 mt-1">Tell your story and what makes you unique.</p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="linkedin" className="block text-sm font-medium text-gray-700">LinkedIn URL (Optional)</label>
+                    <input
+                      id="linkedin"
+                      type="url"
+                      name="linkedin"
+                      value={formData.linkedin}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                      placeholder="https://www.linkedin.com/in/username"
+                      aria-invalid={errors.linkedin ? 'true' : 'false'}
+                      aria-describedby={errors.linkedin ? 'linkedin-error' : undefined}
+                    />
+                    {errors.linkedin && <p id="linkedin-error" className="text-sm text-red-700 mt-1">{errors.linkedin}</p>}
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <label className="block text-sm font-medium text-gray-700">Skills (4)</label>
+                  {errors.skills && <p id="skills-error" className="text-sm text-red-700 mt-1">{errors.skills}</p>}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    {formData.skills.map((skill, index) => (
+                      <div key={index} className="flex space-x-4">
                         <input
                           type="text"
-                          value={project.title}
-                          onChange={(e) => handleInputChange(e, index, 'title')}
-                          placeholder={\`Project \${index + 1} Title\`}
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 mb-2"
-                          aria-label={\`Project \${index + 1} title\`}
-                        />
-                        <textarea
-                          value={project.description}
-                          onChange={(e) => handleInputChange(e, index, 'description')}
-                          placeholder={\`Project \${index + 1} Description\`}
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 mb-2"
-                          rows="3"
-                          aria-label={\`Project \${index + 1} description\`}
+                          value={skill}
+                          onChange={(e) => handleInputChange(e, index, 'skills')}
+                          placeholder={`Skill ${index + 1}`}
+                          className="block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                          aria-label={`Skill ${index + 1}`}
                         />
                         <input
-                          type="url"
-                          value={project.link}
-                          onChange={(e) => handleInputChange(e, index, 'link')}
-                          placeholder={\`Project \${index + 1} Link (Optional)\`}
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 mb-2"
-                          aria-label={\`Project \${index + 1} link\`}
-                        />
-                        <input
-                          type="text"
-                          value={project.category}
-                          onChange={(e) => handleInputChange(e, index, 'category')}
-                          placeholder={\`Project \${index + 1} Category\`}
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                          aria-label={\`Project \${index + 1} category\`}
+                          type="number"
+                          value={formData.skillProficiencies[index]}
+                          onChange={(e) => handleInputChange(e, index, 'skillProficiencies')}
+                          placeholder="Proficiency %"
+                          min="0"
+                          max="100"
+                          className="block w-1/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                          aria-label={`Proficiency for skill ${index + 1}`}
                         />
                       </div>
                     ))}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                    <div>
-                      <label htmlFor="cv" className="block text-sm font-medium text-gray-700">Upload CV (PDF, Optional)</label>
+                </div>
+                <div className="mt-8">
+                  <label className="block text-sm font-medium text-gray-700">Projects (2)</label>
+                  {formData.projects.map((project, index) => (
+                    <div key={index} className="mt-4 p-4 bg-gray-50 rounded-lg">
                       <input
-                        id="cv"
-                        type="file"
-                        accept=".pdf"
-                        onChange={(e) => handleFileChange(e, 'cv')}
-                        className="mt-1 block w-full text-gray-500"
-                        aria-describedby={errors.cv ? 'cv-error' : 'cv-desc'}
-                        aria-invalid={errors.cv ? 'true' : 'false'}
+                        type="text"
+                        value={project.title}
+                        onChange={(e) => handleInputChange(e, index, 'title')}
+                        placeholder={`Project ${index + 1} Title`}
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 mb-2"
+                        aria-label={`Project ${index + 1} title`}
                       />
-                      <p id="cv-desc" className="text-sm text-gray-500 mt-1">Upload a PDF version of your CV.</p>
-                      {errors.cv && <p id="cv-error" className="text-sm text-red-700 mt-1">{errors.cv}</p>}
-                    </div>
-                    <div>
-                      <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Profile Image (JPEG/PNG, Optional)</label>
+                      <textarea
+                        value={project.description}
+                        onChange={(e) => handleInputChange(e, index, 'description')}
+                        placeholder={`Project ${index + 1} Description`}
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 mb-2"
+                        rows="3"
+                        aria-label={`Project ${index + 1} description`}
+                      />
                       <input
-                        id="image"
-                        type="file"
-                        accept="image/jpeg,image/png"
-                        onChange={(e) => handleFileChange(e, 'image')}
-                        className="mt-1 block w-full text-gray-500"
-                        aria-describedby={errors.image ? 'image-error' : 'image-desc'}
-                        aria-invalid={errors.image ? 'true' : 'false'}
+                        type="url"
+                        value={project.link}
+                        onChange={(e) => handleInputChange(e, index, 'link')}
+                        placeholder={`Project ${index + 1} Link (Optional)`}
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 mb-2"
+                        aria-label={`Project ${index + 1} link`}
                       />
-                      <p id="image-desc" className="text-sm text-gray-500 mt-1">Upload a profile image to personalize your portfolio.</p>
-                      {errors.image && <p id="image-error" className="text-sm text-red-700 mt-1">{errors.image}</p>}
+                      <input
+                        type="text"
+                        value={project.category}
+                        onChange={(e) => handleInputChange(e, index, 'category')}
+                        placeholder={`Project ${index + 1} Category`}
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                        aria-label={`Project ${index + 1} category`}
+                      />
                     </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                  <div>
+                    <label htmlFor="cv" className="block text-sm font-medium text-gray-700">Upload CV (PDF, Optional)</label>
+                    <input
+                      id="cv"
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => handleFileChange(e, 'cv')}
+                      className="mt-1 block w-full text-gray-500"
+                      aria-describedby={errors.cv ? 'cv-error' : 'cv-desc'}
+                      aria-invalid={errors.cv ? 'true' : 'false'}
+                    />
+                    <p id="cv-desc" className="text-sm text-gray-500 mt-1">Upload a PDF version of your CV.</p>
+                    {errors.cv && <p id="cv-error" className="text-sm text-red-700 mt-1">{errors.cv}</p>}
                   </div>
-                  <div className="mt-8">
-                    <label htmlFor="template" className="block text-sm font-medium text-gray-700">Select Template</label>
-                    <select
-                      id="template"
-                      value={template}
-                      onChange={(e) => setTemplate(e.target.value)}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                      aria-label="Select portfolio template"
-                    >
-                      <option value="default">Default Template</option>
-                      <option value="dark">Dark Theme</option>
-                      <option value="vibrant">Vibrant Theme</option>
-                    </select>
+                  <div>
+                    <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Profile Image (JPEG/PNG, Optional)</label>
+                    <input
+                      id="image"
+                      type="file"
+                      accept="image/jpeg,image/png"
+                      onChange={(e) => handleFileChange(e, 'image')}
+                      className="mt-1 block w-full text-gray-500"
+                      aria-describedby={errors.image ? 'image-error' : 'image-desc'}
+                      aria-invalid={errors.image ? 'true' : 'false'}
+                    />
+                    <p id="image-desc" className="text-sm text-gray-500 mt-1">Upload a profile image to personalize your portfolio.</p>
+                    {errors.image && <p id="image-error" className="text-sm text-red-700 mt-1">{errors.image}</p>}
                   </div>
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className={\`mt-8 w-full py-3 px-6 rounded-full font-semibold focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50 \${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 text-white hover:bg-indigo-700'}\`}
-                    aria-label="Generate ePortfolio"
-                  >
-                    {isLoading ? 'Generating...' : 'Generate ePortfolio'}
-                  </button>
-                  {message && (
-                    <div className={\`mt-6 text-center p-4 rounded-lg \${message.toString().includes('Error') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}\`} role="alert" aria-live="polite">
-                      {message}
-                      {countdown !== null && (
-                        <p className="mt-2">Your portfolio will be live in approximately: <span className="font-bold">{formatCountdown(countdown)}</span></p>
-                      )}
-                    </div>
-                  )}
-                </form>
-                <form name="feedback" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" className="mt-8 bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="feedback-form-title">
-                  <input type="hidden" name="form-name" value="feedback" />
-                  <input type="hidden" name="bot-field" />
-                  <h3 id="feedback-form-title" className="sr-only">Feedback Form</h3>
-                  <label htmlFor="feedback" className="block text-sm font-medium text-gray-700">Your Feedback</label>
-                  <textarea
-                    id="feedback"
-                    name="feedback"
-                    placeholder="How can we improve?"
+                </div>
+                <div className="mt-8">
+                  <label htmlFor="template" className="block text-sm font-medium text-gray-700">Select Template</label>
+                  <select
+                    id="template"
+                    value={template}
+                    onChange={(e) => setTemplate(e.target.value)}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                    rows="4"
-                    aria-describedby="feedback-desc"
-                  />
-                  <p id="feedback-desc" className="text-sm text-gray-500 mt-1">Share your thoughts to help us improve the ePortfolio Generator.</p>
-                  <button
-                    type="submit"
-                    className="mt-4 w-full bg-gray-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-opacity-50"
-                    aria-label="Submit feedback"
+                    aria-label="Select portfolio template"
                   >
-                    Submit Feedback
-                  </button>
-                </form>
-                <div className="mt-8 text-center">
-                  <a
-                    href="https://buymeacoffee.com/theidealcag"
-                    className="inline-block bg-yellow-400 text-gray-900 py-3 px-8 rounded-full font-semibold hover:bg-yellow-500 transition"
-                    aria-label="Support us on Buy Me a Coffee"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Support Us
-                  </a>
+                    <option value="default">Default Template</option>
+                    <option value="dark">Dark Theme</option>
+                    <option value="vibrant">Vibrant Theme</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className={`mt-8 w-full py-3 px-6 rounded-full font-semibold focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50 ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
+                  aria-label="Generate ePortfolio"
+                >
+                  {isLoading ? 'Generating...' : 'Generate ePortfolio'}
+                </button>
+                {message && (
+                  <div className={`mt-6 text-center p-4 rounded-lg ${message.toString().includes('Error') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`} role="alert" aria-live="polite">
+                    {message}
+                    {countdown !== null && (
+                      <p className="mt-2">Your portfolio will be live in approximately: <span className="font-bold">{formatCountdown(countdown)}</span></p>
+                    )}
+                  </div>
+                )}
+              </form>
+              <form name="feedback" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" className="mt-8 bg-gray-100 p-8 rounded-xl shadow-lg" role="form" aria-labelledby="feedback-form-title">
+                <input type="hidden" name="form-name" value="feedback" />
+                <input type="hidden" name="bot-field" />
+                <h3 id="feedback-form-title" className="sr-only">Feedback Form</h3>
+                <label htmlFor="feedback" className="block text-sm font-medium text-gray-700">Your Feedback</label>
+                <textarea
+                  id="feedback"
+                  name="feedback"
+                  placeholder="How can we improve?"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                  rows="4"
+                  aria-describedby="feedback-desc"
+                />
+                <p id="feedback-desc" className="text-sm text-gray-500 mt-1">Share your thoughts to help us improve the ePortfolio Generator.</p>
+                <button
+                  type="submit"
+                  className="mt-4 w-full bg-gray-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-opacity-50"
+                  aria-label="Submit feedback"
+                >
+                  Submit Feedback
+                </button>
+              </form>
+              <div className="mt-8 text-center">
+                <a
+                  href="https://www.buymeacoffee.com/theidealcag"
+                  className="inline-block bg-yellow-400 text-gray-900 py-3 px-8 rounded-full font-semibold hover:bg-yellow-500 transition"
+                  aria-label="Support us on Buy Me a Coffee"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Support Us
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section id="faq" className="py-16 bg-gray-100">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">How long does it take to generate a portfolio?</h3>
+                  <p className="text-gray-600">Your portfolio will be generated and live within approximately 1 minute after submission.</p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">Can I update my portfolio later?</h3>
+                  <p className="text-gray-600">Yes, you can regenerate your portfolio with updated information using the same form.</p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">Is my data secure?</h3>
+                  <p className="text-gray-600">We prioritize security and only store your email for reminders, using secure hosting on GitHub Pages.</p>
                 </div>
               </div>
-            </section>
+            </div>
+          </section>
 
-            <section id="faq" className="py-16 bg-gray-100">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-poppins font-bold text-gray-800 mb-8 text-center">Frequently Asked Questions</h2>
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800">How long does it take to generate a portfolio?</h3>
-                    <p className="text-gray-600">Your portfolio will be generated and live within approximately 1 minute after submission.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Can I update my portfolio later?</h3>
-                    <p className="text-gray-600">Yes, you can regenerate your portfolio with updated information using the same form.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Is my data secure?</h3>
-                    <p className="text-gray-600">We prioritize security and only store your email for reminders, using secure hosting on GitHub Pages.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
+          <footer className="bg-gray-800 text-white py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <p className="mb-4">© 2025 ePortfolio Generator. All rights reserved.</p>
+              <nav aria-label="Footer navigation">
+                <ul className="flex justify-center space-x-4">
+                  <li><a href="#features" className="hover:text-yellow-400 transition">Features</a></li>
+                  <li><a href="#how-it-works" className="hover:text-yellow-400 transition">How It Works</a></li>
+                  <li><a href="#faq" className="hover:text-yellow-400 transition">FAQ</a></li>
+                  <li><a href="https://www.buymeacoffee.com/theidealcag" className="hover:text-yellow-400 transition" target="_blank" rel="noopener noreferrer">Support Us</a></li>
+                </ul>
+              </nav>
+            </div>
+          </footer>
+        </div>
+      );
+    }
 
-            <footer className="bg-gray-800 text-white py-8">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <p className="mb-4">© 2025 ePortfolio Generator. All rights reserved.</p>
-                <nav aria-label="Footer navigation">
-                  <ul className="flex justify-center space-x-4">
-                    <li><a href="#features" className="hover:text-yellow-400 transition">Features</a></li>
-                    <li><a href="#how-it-works" className="hover:text-yellow-400 transition">How It Works</a></li>
-                    <li><a href="#faq" className="hover:text-yellow-400 transition">FAQ</a></li>
-                    <li><a href="YOUR_BUY_ME_A_COFFEE_URL" className="hover:text-yellow-400 transition" target="_blank" rel="noopener noreferrer">Support Us</a></li>
-                  </ul>
-                </nav>
-              </div>
-            </footer>
-          </div>
-        );
-      }
-
+    try {
       ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-    `;
-
-    // Transform and execute JSX
-    transformJSX(jsxCode).then((compiledCode) => {
-      if (compiledCode) {
-        const script = document.createElement('script');
-        script.textContent = compiledCode;
-        document.body.appendChild(script);
-      }
-    });
+    } catch (e) {
+      console.error('React rendering error:', e);
+    }
   </script>
 </body>
 </html>
