@@ -126,47 +126,50 @@
         }
       };
 
-      const handlePortfolioSubmit = async (e) => {
-        e.preventDefault();
-        if (!validateForm()) return;
+      const handlePortfolioSubmit = async (form) => {
+       try {
+         setMessage(<>Generating your ePortfolio...</>);
+         setCountdown(3);
 
-        setIsLoading(true);
-        setMessage('Generating your ePortfolio...');
-        setCountdown(60);
+         const formData = new FormData();
+         formData.append('name', form.name || 'Test User');
+         formData.append('profession', form.profession || 'Developer');
+         formData.append('tagline', form.tagline || '');
+         formData.append('summary', form.summary || '');
+         formData.append('about', form.about || '');
+         formData.append('user_email', form.user_email || 'example@email.com');
+         formData.append('linkedin', form.linkedin || '');
+         formData.append('phone', form.phone || '');
+         formData.append('skills', JSON.stringify(form.skills || ['JavaScript', 'React', 'CSS', 'HTML']));
+         formData.append('skillProficiencies', JSON.stringify(form.skillProficiencies || [80, 70, 60, 50]));
+         formData.append('projects', JSON.stringify(form.projects || [
+           { title: 'Project 1', description: 'Test project', category: 'Web' },
+           { title: 'Project 2', description: 'Another test', category: 'App' }
+         ]));
+         formData.append('template', form.template || 'default');
+         if (form.cv) formData.append('cv', form.cv);
+         if (form.image) formData.append('image', form.image);
 
-        const data = new FormData();
-        for (const key in formData) {
-          if (Array.isArray(formData[key])) {
-            data.append(key, JSON.stringify(formData[key]));
-          } else {
-            data.append(key, formData[key]);
-          }
-        }
-        if (cvFile) data.append('cv', cvFile);
-        if (imageFile) data.append('image', imageFile);
-        data.append('template', template);
+         const apiUrl = '/api/generate';
+         const response = await fetch(apiUrl, {
+           method: 'POST',
+           body: formData,
+         });
 
-        try {
-          const apiUrl = 'https://eportfolio-generator.vercel.app/api/generate';
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            body: data,
-          });
-          const result = await response.json();
-          if (response.ok) {
-            setMessage(<>Success! Your ePortfolio is live at: <a href={result.url} className="underline" target="_blank" rel="noopener noreferrer">{result.url}</a></>);
-          } else {
-            setMessage(<>Error: {result.error || 'Failed to generate ePortfolio.'} <span>Please try again or contact support.</span></>);
-            setCountdown(null);
-          }
-        } catch (error) {
-          console.error('Portfolio submission error:', error);
-          setMessage(<>Error: Unable to connect to the server. <span>Please check your connection and try again.</span></>);
-          setCountdown(null);
-        } finally {
-          setIsLoading(false);
-        }
-      };
+         if (!response.ok) {
+           const errorText = await response.text();
+           throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
+         }
+
+         const data = await response.json();
+         setMessage(<>Success! Your ePortfolio is live at: <a href={data.url} target="_blank" className="text-blue-600 underline">{data.url}</a></>);
+         setCountdown(null);
+       } catch (error) {
+         console.error('Portfolio submission error:', error);
+         setMessage(<>Error: Unable to connect to the server. <span>Please check your connection and try again. Error: {error.message}</span></>);
+         setCountdown(null);
+       }
+     };
 
       const handleFeedbackSubmit = async (e) => {
         e.preventDefault();
