@@ -1,0 +1,15 @@
+```yaml
+name: Send Reminders
+on:
+  schedule:
+    - cron: "0 0 * * *" # Daily at midnight UTC
+jobs:
+  send-reminders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: curl -X POST https://your-project.supabase.co/functions/v1/send-reminder
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+```
